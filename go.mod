@@ -2,7 +2,10 @@ module github.com/georgehyde-dot/GoMapsApi
 
 go 1.22.1
 
-require googlemaps.github.io/maps v1.7.0
+require (
+	github.com/joho/godotenv v1.5.1
+	googlemaps.github.io/maps v1.7.0
+)
 
 require (
 	github.com/google/uuid v1.1.1 // indirect

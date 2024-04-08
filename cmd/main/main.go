@@ -7,11 +7,16 @@ import (
 	"os"
 
 	"github.com/georgehyde-dot/GoMapsApi/pkg/mapsapi"
+	"github.com/joho/godotenv"
 	"googlemaps.github.io/maps"
 )
 
 func main() {
 	// API Key setup
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
 	apiKey := os.Getenv("GOOGLE_MAPS_API_KEY") // Consider using environment variables
 	if apiKey == "" {
 		log.Fatalf("GOOGLE_MAPS_API_KEY environment variable is not set")
