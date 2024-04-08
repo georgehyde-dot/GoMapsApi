@@ -1,0 +1,29 @@
+
+# C extensions
+*.so
+
+# Environments
+.env
+.venv
+.virt
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+virt/
+
+
+# mkdocs documentation
+/site
+
+*.log
+
+.vscode/
+
+.DS_Store
+
+vendor/
+
+_obj/
+_test/
