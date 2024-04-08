@@ -13,7 +13,7 @@ env.bak/
 venv.bak/
 virt/
 
-
+cmd/main/main
 # mkdocs documentation
 /site
 
