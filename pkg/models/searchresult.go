@@ -1,7 +1,7 @@
 package models
 
 type SearchResult struct {
-	Id          int
+	Id          string
 	Name        string
 	Address     string
 	PhoneNumber string
