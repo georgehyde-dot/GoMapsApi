@@ -7,3 +7,8 @@ type SearchResult struct {
 	PhoneNumber string
 	Website     string
 }
+
+func (sr SearchResult) SaveSearchResult() error {
+
+	return nil
+}

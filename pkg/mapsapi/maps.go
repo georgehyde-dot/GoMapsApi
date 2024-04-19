@@ -41,14 +41,25 @@ func GetSearchResults(ctx context.Context, query string) ([]models.SearchResult,
 		if err != nil {
 			continue
 		}
-		apiResults = append(apiResults, models.SearchResult{
+
+		fullResult := models.SearchResult{
 			Id:          result.PlaceID,
 			Name:        result.Name,
 			Address:     result.FormattedAddress,
 			PhoneNumber: detailsResp.InternationalPhoneNumber,
 			Website:     detailsResp.URL,
-		})
+		}
+
+		err = fullResult.SaveSearchResult()
+
+		if err != nil {
+			log.Printf("Failed to Save Results: %v", err)
+		}
+
+		apiResults = append(apiResults, fullResult)
+
 	}
+
 	return apiResults, nil
 }
 

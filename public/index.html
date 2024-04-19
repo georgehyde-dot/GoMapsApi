@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Location Search with HTMX</title>
+  <script src="https://unpkg.com/htmx.org@1.8.4"></script> 
+</head>
+<body>
+  <form hx-post="/search" hx-target="#results">
+      <input type="text" name="location" placeholder="Enter Location">
+      <button type="submit">Search</button>
+  </form>
+
+  <div id="results">
+    </div>
+</body>
+</html>

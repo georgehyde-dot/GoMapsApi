@@ -29,6 +29,7 @@ func WriteJSON(w http.ResponseWriter, status int, v any) error {
 func makeHTTPHandlerFunc(f APIfunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if err := f(w, r); err != nil {
+			log.Println("Bad Request status")
 			WriteJSON(w, http.StatusBadRequest, APIError{Error: err.Error()})
 		}
 	}
@@ -43,9 +44,12 @@ func NewAPIServer(listenAddr string) *APIServer {
 func (s *APIServer) Run() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/account", makeHTTPHandlerFunc(s.handleSearch))
+	router.HandleFunc("/search", makeHTTPHandlerFunc(s.handleSearch))
 
 	log.Println("JSON API server running on port: ", s.listenAddr)
+
+	fs := http.FileServer(http.Dir("./public"))
+	router.PathPrefix("/").Handler(fs)
 
 	http.ListenAndServe(s.listenAddr, router)
 }
@@ -70,7 +74,7 @@ func (s *APIServer) handleSearchOptions(w http.ResponseWriter, r *http.Request) 
 func (s *APIServer) handleSearchLocation(w http.ResponseWriter, r *http.Request) error {
 	//todo query extraction & error handling
 	ctx := context.Background()
-	query := r.Header.Get("location")
+	query := r.FormValue("location")
 	results, err := GetSearchResults(ctx, query)
 	if err != nil {
 		return fmt.Errorf("error fetching search results: %w", err)
