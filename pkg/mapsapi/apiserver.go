@@ -55,13 +55,20 @@ func (s *APIServer) Run() {
 }
 
 func (s *APIServer) handleSearch(w http.ResponseWriter, r *http.Request) error {
-	if r.Method == "GET" {
+	switch {
+	case r.Method == "GET":
 		return s.handleSearchOptions(w, r)
-	}
-	if r.Method == "POST" {
+	case r.Method == "POST":
 		return s.handleSearchLocation(w, r)
+	default:
+		log.Printf("method not allowed %v", r.Method)
+		return s.handleBadSearch(w, r)
 	}
 
+}
+
+func (s *APIServer) handleBadSearch(w http.ResponseWriter, r *http.Request) error {
+	w.Write([]byte{})
 	return fmt.Errorf("method not allowed %v", r.Method)
 }
 
