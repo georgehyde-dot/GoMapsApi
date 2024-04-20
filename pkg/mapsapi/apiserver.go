@@ -45,6 +45,7 @@ func (s *APIServer) Run() {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/search", makeHTTPHandlerFunc(s.handleSearch))
+	// router.HandleFunc("/search/{query}", makeHTTPHandlerFunc(s.handleSearchLocation))
 
 	log.Println("JSON API server running on port: ", s.listenAddr)
 
@@ -64,7 +65,6 @@ func (s *APIServer) handleSearch(w http.ResponseWriter, r *http.Request) error {
 		log.Printf("method not allowed %v", r.Method)
 		return s.handleBadSearch(w, r)
 	}
-
 }
 
 func (s *APIServer) handleBadSearch(w http.ResponseWriter, r *http.Request) error {
@@ -81,6 +81,8 @@ func (s *APIServer) handleSearchOptions(w http.ResponseWriter, r *http.Request) 
 func (s *APIServer) handleSearchLocation(w http.ResponseWriter, r *http.Request) error {
 	//todo query extraction & error handling
 	ctx := context.Background()
+	// vars := mux.Vars(r)
+	// query := vars["query"]
 	query := r.FormValue("location")
 	results, err := GetSearchResults(ctx, query)
 	if err != nil {
