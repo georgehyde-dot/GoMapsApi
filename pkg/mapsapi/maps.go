@@ -50,7 +50,7 @@ func GetSearchResults(ctx context.Context, query string) ([]models.SearchResult,
 			Website:     detailsResp.URL,
 		}
 
-		err = fullResult.SaveSearchResult()
+		err = fullResult.SaveSearchResult(query)
 
 		if err != nil {
 			log.Printf("Failed to Save Results: %v", err)

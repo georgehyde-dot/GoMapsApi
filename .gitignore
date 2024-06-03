@@ -27,3 +27,4 @@ vendor/
 
 _obj/
 _test/
+*.csv
